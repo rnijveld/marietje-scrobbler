@@ -7,7 +7,6 @@ if (php_sapi_name() === 'cli-server') {
     }
 }
 
-define('PUBLIC_LOCATION', __DIR__);
 define('ROOT_LOCATION', dirname(__DIR__));
 
 require_once ROOT_LOCATION . '/app/web.php';
