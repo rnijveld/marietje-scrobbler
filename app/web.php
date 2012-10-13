@@ -6,7 +6,14 @@ require_once ROOT_LOCATION . '/vendor/autoload.php';
 $app = new Marietje\Scrobbler\App();
 
 $app->get('/', function () use ($app) {
-    var_dump("Got here!");
+    $user = $app['session']->get('user');
+    if ($user === null) {
+        $app->redirect('/login');
+    }
+});
+
+$app->get('/login', function () use ($app) {
+
 });
 
 $app->run();
