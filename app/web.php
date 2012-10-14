@@ -3,17 +3,12 @@
 define('APP_LOCATION', __DIR__);
 require_once ROOT_LOCATION . '/vendor/autoload.php';
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 $app = new Marietje\Scrobbler\App();
 
-$app->get('/', function () use ($app) {
-    $user = $app['session']->get('user');
-    if ($user === null) {
-        $app->redirect('/login');
-    }
-});
-
-$app->get('/login', function () use ($app) {
-
-});
+$app->mount('/', $app->controller('home'));
+$app->mount('/', $app->controller('user'));
 
 $app->run();
