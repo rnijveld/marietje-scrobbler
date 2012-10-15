@@ -30,6 +30,8 @@ $user->get('/auth', function (Request $request) use ($app) {
     }
 
     $session = $app['lastfm']->getSession($token);
+    $app['lastfm']->setSession($session['key']);
+    $app['session']->set('user_details', $app['lastfm']->getUserInfo());
     if (!$session) {
         $app->abort(500, "Invalid token.");
     } else {

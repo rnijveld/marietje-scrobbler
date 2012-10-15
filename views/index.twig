@@ -1,5 +1,11 @@
 {% extends "layout.twig" %}
 
 {% block page %}
-    <a href="{{ url('home') }}">Get going</a>
+    <div class="well">
+        <h1>Scrobbler</h1>
+        <p class="lead">
+            {{ "welcome"|trans }}
+        </p>
+        <p><a href="{{ url('home') }}" class="btn btn-primary btn-large">{{"start"|trans}}</a></p>
+    </div>
 {% endblock %}

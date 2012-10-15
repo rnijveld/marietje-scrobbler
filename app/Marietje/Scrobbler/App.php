@@ -92,6 +92,11 @@ class App extends Application
             )
         ));
 
+        // easy database access
+        $this['retrieved'] = new Model\Retrieved($this['db']);
+        $this['listeners'] = new Model\Listeners($this['db']);
+        $this['scrobbles'] = new Model\Scrobbles($this['db']);
+
         // last.fm and session data
         $this['lastfm'] = new Lastfm($this->key, $this->secret);
         $sess = $this['session']->get(self::LASTFM_SESSION);

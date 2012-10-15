@@ -1,0 +1,13 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+#nowplaying .thumbnail {
+    text-align: center;
+}
+
+#nowplaying .thumbnail div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
