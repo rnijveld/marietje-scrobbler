@@ -15,7 +15,7 @@ class Listeners
 
     public function getListeners($where)
     {
-
+        return array();
     }
 
     public function addListener($user, $session)

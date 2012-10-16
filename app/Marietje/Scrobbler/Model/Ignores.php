@@ -4,7 +4,7 @@ namespace Marietje\Scrobbler\Model;
 
 use Doctrine\DBAL\Connection;
 
-class Retrieved
+class Ignores
 {
     private $db;
 
@@ -13,14 +13,18 @@ class Retrieved
         $this->db = $db;
     }
 
-    public function getLatest($where)
+    public function isIgnored($track, $user)
     {
-        // TODO: do some sql shizzle here, or return false if none was found
         return false;
     }
 
-    public function insertTrack(array $track, $where)
+    public function addIgnoredTrack($artist, $track)
     {
-        // TODO: do some sql shizzle here
+
+    }
+
+    public function addIgnoredArtist($artist)
+    {
+
     }
 }

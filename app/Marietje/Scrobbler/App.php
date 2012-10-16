@@ -42,6 +42,27 @@ class App extends Application
     private $secret = '';
 
     /**
+     * Locations available
+     * @var array
+     */
+    private $locations = [
+        'noord' => [
+            'http://noordslet.science.ru.nl:8080/playing',
+            'nk'
+        ],
+        'zuid' => [
+            'http://zuidslet.science.ru.nl:8080/playing',
+            'zk'
+        ],
+    ];
+
+    /**
+     * Interval to check for new song.
+     * @var float
+     */
+    private $checkInterval = 20.0;
+
+    /**
      * Construct a new application and setup all components required.
      */
     public function __construct()
@@ -96,6 +117,9 @@ class App extends Application
         $this['retrieved'] = new Model\Retrieved($this['db']);
         $this['listeners'] = new Model\Listeners($this['db']);
         $this['scrobbles'] = new Model\Scrobbles($this['db']);
+        $this['ignores']   = new Model\Ignores($this['db']);
+        $this['locations'] = $this->locations;
+        $this['interval']  = $this->checkInterval;
 
         // last.fm and session data
         $this['lastfm'] = new Lastfm($this->key, $this->secret);

@@ -272,4 +272,19 @@ class Lastfm
         }
         return $result;
     }
+
+    public function hasScrobbleQuality(array $track)
+    {
+        // TODO: determine if a track should be scrobbled at this time
+        // - when was the previous track played?
+        // - has the track fully played or not
+        return true;
+    }
+
+    public function updateTrackInfo(array $track)
+    {
+        $info = $this->getTrackInfo($track['artist'], $track['title']);
+        // TODO: add info to track array
+        return $info;
+    }
 }

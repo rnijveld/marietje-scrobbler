@@ -6,32 +6,62 @@ require_once ROOT_LOCATION . '/vendor/autoload.php';
 
 $app = new Marietje\Scrobbler\App();
 
-$locations = [
-    'noord' => [
-        'http://noordslet.science.ru.nl:8080/playing',
-        'nk'
-    ],
-    'zuid' => [
-        'http://zuidslet.science.ru.nl:8080/playing',
-        'zk'
-    ],
-];
+$startTime = microtime(true);
+$running = 0;
 
-foreach ($locations as $name => $val) {
-    list($url, $key) = $val;
-    $retriever = new Marietje\Scrobbler\Retriever();
-    $latest = $retriever->getNowPlaying();
 
-    $previous = false;
-    if ($latest !== false) {
-        $previous = $app['retriever']->ifNewInsertTrack($latest, $key);
-    }
+while ($running < 60.0) {
+    foreach ($app['locations'] as $val) {
+        list($url, $key) = $val;
 
-    if ($previous !== false) {
-        $listeners = $app['listeners']->getListeners($key);
-        foreach ($listeners as $listener) {
-            // Check if track is not in the ignore list for this listener
-            // if it is not: send as scrobble and add to scrobbled tracks if accepted
+        // don't query database in a loop, but whatever
+        $latest = $app['retrieved']->getLatest($key);
+
+        // don't create objects in a loop, but whatever
+        $retriever = new Marietje\Scrobbler\Retriever($url, $app);
+        $track = $retriever->getNowPlaying();
+
+        // check for changes
+        if ($latest === false || $track === false || $latest['start'] !== $track['start']) {
+            $listeners = $app['listeners']->getListeners($key);
+
+            // if we really have a new track
+            if ($track !== false) {
+                $track = $app['lastfm']->updateTrackInfo($track);
+                $app['retrieved']->insertTrack($track, $key);
+
+                // update nowplaying for all listeners
+                foreach ($listeners as $session => $listener) {
+                    $app['lastfm']->setSession($session);
+                    $app['lastfm']->setNowPlaying(
+                        $track['artist'],
+                        $track['title']
+                    );
+                }
+            }
+
+            // if we have an old track and it is scrobble-able
+            if ($latest !== false && $app['lastfm']->hasScrobbleQuality($latest)) {
+                foreach ($listeners as $session => $listener) {
+                    // - when has someone checked in
+
+                    // if the track isn't ignored: scrobble it
+                    if (!$app['ignores']->isIgnored($latest, $listener)) {
+                        $app['lastfm']->setSession($session);
+                        $result = $app['lastfm']->scrobble(
+                            $latest['artist'],
+                            $latest['title'],
+                            $latest['start']
+                        );
+                    }
+                    // if result is positive: add to scrobbles
+                }
+            }
         }
     }
+
+    $running = microtime(true) - $startTime;
+    $step = $app['interval'] - fmod($running, $app['interval']);
+    usleep($step * 1000000 + 1000); // a little extra margin
+    $running = microtime(true) - $startTime;
 }

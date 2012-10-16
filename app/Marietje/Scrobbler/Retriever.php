@@ -11,9 +11,12 @@ class Retriever
 {
     private $client;
 
-    public function __construct($url)
+    private $app;
+
+    public function __construct($url, $app)
     {
         $this->client = new Client($url);
+        $this->app = $app;
     }
 
     public function getNowPlaying()
