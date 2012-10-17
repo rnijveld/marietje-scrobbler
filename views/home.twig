@@ -20,9 +20,9 @@
             <h2>Noordkantine</h2>
             <div data-where="nk" class="thumbnail">
                 <div id="np-noord">
-                    <img src="http://userserve-ak.last.fm/serve/300x300/71997588.png">
-                    <h4>Cher</h4>
-                    <h4 class="muted">Believe</h4>
+                    <img src="{{ app.request.basepath }}/img/stopped.jpg">
+                    <h4 class="artist"></h4>
+                    <h4 class="title muted"></h4>
                 </div>
                 <form method="post" action="{{ url('switch', {where: 'nk'}) }}" class="center">
                     {% if nk %}
@@ -39,11 +39,11 @@
             <h2>Zuidkantine</h2>
             <div data-where="zk" class="thumbnail">
                 <div id="np-zuid">
-                    <img src="http://userserve-ak.last.fm/serve/300x300/69591230.png">
-                    <h4>Foo Fighters</h4>
-                    <h4 class="muted">Everlong</h4>
+                    <img src="/img/stopped.jpg">
+                    <h4 class="artist"></h4>
+                    <h4 class="title muted"></h4>
                 </div>
-                <form method="post" action="{{ url('switch', {where: 'nk'}) }}">
+                <form method="post" action="{{ url('switch', {where: 'zk'}) }}">
                     {% if zk %}
                         <input type="submit" class="btn btn-danger" value="Zuid verlaten">
                     {% else %}
@@ -55,95 +55,30 @@
         </div>
     </div>
     <h2>Last scrobbles</h2>
-    <table class="table table-striped" id="scrobbles" data-url="{{ url('nowplaying') }}">
+    <table class="table table-striped" id="scrobbles" data-url="{{ url('update') }}">
         <thead>
             <tr><th>Artist</th><th>Track</th><th>Scrobbled</th><th>Delete</th></tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Foo Fighters</td>
-                <td>Everlong</td>
-                <td>15:02</td>
-                <td>
-                    <a class="btn btn-warning btn-small" title="Remove scrobble" href="#remove_scrobble" data-toggle="modal">
-                        <span class="icon-trash icon-white"></span>
-                    </a>
-                    <a class="btn btn-danger btn-small" title="Ignore track" href="#ignore_track" data-toggle="modal">
-                        <span class="icon-remove icon-white"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Foo Fighters</td>
-                <td>Everlong</td>
-                <td>15:02</td>
-                <td>
-                    <a class="btn btn-warning btn-small" title="Remove scrobble" href="#remove_scrobble" data-toggle="modal">
-                        <span class="icon-trash icon-white"></span>
-                    </a>
-                    <a class="btn btn-danger btn-small" title="Ignore track" href="#ignore_track" data-toggle="modal">
-                        <span class="icon-remove icon-white"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Foo Fighters</td>
-                <td>Everlong</td>
-                <td>15:02</td>
-                <td>
-                    <a class="btn btn-warning btn-small" title="Remove scrobble" href="#remove_scrobble" data-toggle="modal">
-                        <span class="icon-trash icon-white"></span>
-                    </a>
-                    <a class="btn btn-danger btn-small" title="Ignore track" href="#ignore_track" data-toggle="modal">
-                        <span class="icon-remove icon-white"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Foo Fighters</td>
-                <td>Everlong</td>
-                <td>15:02</td>
-                <td>
-                    <a class="btn btn-warning btn-small" title="Remove scrobble" href="#remove_scrobble" data-toggle="modal">
-                        <span class="icon-trash icon-white"></span>
-                    </a>
-                    <a class="btn btn-danger btn-small" title="Ignore track" href="#ignore_track" data-toggle="modal">
-                        <span class="icon-remove icon-white"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Foo Fighters</td>
-                <td>Everlong</td>
-                <td>15:02</td>
-                <td>
-                    <a class="btn btn-warning btn-small" title="Remove scrobble" href="#remove_scrobble" data-toggle="modal">
-                        <span class="icon-trash icon-white"></span>
-                    </a>
-                    <a class="btn btn-danger btn-small" title="Ignore track" href="#ignore_track" data-toggle="modal">
-                        <span class="icon-remove icon-white"></span>
-                    </a>
-                </td>
-            </tr>
         </tbody>
     </table>
 
-    <div class="modal hide" id="ignore_track" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal hide" id="track_ignore" role="dialog" tabindex="-1" aria-hidden="true" data-url="{{ url('ignore') }}">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Ignore</h3>
         </div>
         <div class="modal-body">
-            <p>You may choose to ignore this artist or this track in the future.</p>
+            <p>You may choose to ignore this artist or this track in the future, removes the current scrobble as well.</p>
         </div>
         <div class="modal-footer">
-            <a href="#" id="remove_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
-            <a href="#" id="ignore_artist" class="btn btn-primary">Artist</a>
-            <a href="#" id="ignore_track" class="btn btn-primary">Track</a>
+            <button href="#" id="ignore_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</button>
+            <button href="#" id="ignore_artist" class="btn btn-primary">Artist</button>
+            <button href="#" id="ignore_track" class="btn btn-primary">Track</button>
         </div>
     </div>
 
-    <div class="modal hide" id="remove_scrobble" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal hide" id="remove_scrobble" role="dialog" tabindex="-1" aria-hidden="true" data-url="{{ url('delete') }}">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Remove</h3>
@@ -152,8 +87,8 @@
             <p>Remove this scrobble?</p>
         </div>
         <div class="modal-footer">
-            <a href="#" id="remove_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</a>
-            <a href="#" id="remove_remove" class="btn btn-primary">Remove</a>
+            <button href="#" id="remove_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</button>
+            <button href="#" id="remove_remove" class="btn btn-primary">Remove</button>
         </div>
     </div>
 {% endblock %}

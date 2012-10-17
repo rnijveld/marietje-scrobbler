@@ -60,7 +60,7 @@ class App extends Application
      * Interval to check for new song.
      * @var float
      */
-    private $checkInterval = 20.0;
+    private $checkInterval = 10.0;
 
     /**
      * Construct a new application and setup all components required.
@@ -125,8 +125,10 @@ class App extends Application
         $this['lastfm'] = new Lastfm($this->key, $this->secret);
         $sess = $this['session']->get(self::LASTFM_SESSION);
         $this['user'] = null;
+        $this['sess'] = null;
         if ($sess !== null) {
             $this['user'] = $sess['name'];
+            $this['sess'] = $sess['key'];
             $this['lastfm']->setSession($sess['key']);
         }
     }

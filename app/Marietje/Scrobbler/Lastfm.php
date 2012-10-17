@@ -284,7 +284,19 @@ class Lastfm
     public function updateTrackInfo(array $track)
     {
         $info = $this->getTrackInfo($track['artist'], $track['title']);
-        // TODO: add info to track array
-        return $info;
+        $images = $info->album->image;
+        if ($images !== null) {
+            foreach ($images as $img) {
+                if ((string)$img->attributes()->size === 'extralarge') {
+                    $track['image'] = (string)$img;
+                    break;
+                }
+            }
+        }
+
+        if (!isset($track['image'])) {
+            $track['image'] = null;
+        }
+        return $track;
     }
 }

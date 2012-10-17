@@ -20,12 +20,11 @@ $home->get('/home', function () use ($app) {
     if ($user === null) {
         return $app->redirect($app->path('login'));
     } else {
-        // $userData = $app['lastfm']->getTrackInfo('Foo Fighters', 'Everlong');
         return $app->render('home.twig', [
             'user' => $user,
             'details' => $app['session']->get('user_details'),
-            'nk' => false,
-            'zk' => true
+            'nk' => $app['listeners']->isListeningTo($user, 'nk'),
+            'zk' => $app['listeners']->isListeningTo($user, 'zk')
         ]);
     }
 })->bind('home');

@@ -9,52 +9,69 @@ $app = new Marietje\Scrobbler\App();
 $startTime = microtime(true);
 $running = 0;
 
+// clear listeners at midnight
+if (date('Hi') === '0000') {
+    $app['listeners']->clear();
+}
 
+// keep running for a minute
 while ($running < 60.0) {
     foreach ($app['locations'] as $val) {
         list($url, $key) = $val;
 
-        // don't query database in a loop, but whatever
-        $latest = $app['retrieved']->getLatest($key);
+        // if there are no listeners there's no need
+        if ($app['listeners']->listenerCount($key) > 0) {
 
-        // don't create objects in a loop, but whatever
-        $retriever = new Marietje\Scrobbler\Retriever($url, $app);
-        $track = $retriever->getNowPlaying();
+            // don't query database in a loop, but whatever
+            $latest = $app['retrieved']->getLatest($key);
 
-        // check for changes
-        if ($latest === false || $track === false || $latest['start'] !== $track['start']) {
-            $listeners = $app['listeners']->getListeners($key);
+            // don't create objects in a loop, but whatever
+            $retriever = new Marietje\Scrobbler\Retriever($url, $app);
+            $track = $retriever->getNowPlaying();
 
-            // if we really have a new track
-            if ($track !== false) {
-                $track = $app['lastfm']->updateTrackInfo($track);
-                $app['retrieved']->insertTrack($track, $key);
+            // check for changes
+            if ($latest === false || $track === false || $latest['start'] !== $track['start']) {
+                $listeners = $app['listeners']->getListeners($key);
 
-                // update nowplaying for all listeners
-                foreach ($listeners as $session => $listener) {
-                    $app['lastfm']->setSession($session);
-                    $app['lastfm']->setNowPlaying(
-                        $track['artist'],
-                        $track['title']
-                    );
-                }
-            }
+                // if we really have a new track
+                if ($track !== false) {
+                    $track = $app['lastfm']->updateTrackInfo($track);
+                    $app['retrieved']->insertTrack($track, $key);
 
-            // if we have an old track and it is scrobble-able
-            if ($latest !== false && $app['lastfm']->hasScrobbleQuality($latest)) {
-                foreach ($listeners as $session => $listener) {
-                    // - when has someone checked in
-
-                    // if the track isn't ignored: scrobble it
-                    if (!$app['ignores']->isIgnored($latest, $listener)) {
+                    // update nowplaying for all listeners
+                    foreach ($listeners as $session => $listener) {
                         $app['lastfm']->setSession($session);
-                        $result = $app['lastfm']->scrobble(
-                            $latest['artist'],
-                            $latest['title'],
-                            $latest['start']
+                        $app['lastfm']->setNowPlaying(
+                            $track['artist'],
+                            $track['title']
                         );
                     }
-                    // if result is positive: add to scrobbles
+                }
+
+                // if we have an old track and it is scrobble-able
+                if ($latest !== false && $app['lastfm']->hasScrobbleQuality($latest)) {
+                    foreach ($listeners as $session => $listener) {
+                        list($checkin, $user) = $listener;
+
+                        // if the track isn't ignored: scrobble it
+                        if (!$app['ignores']->isIgnored($user, $latest['artist'], $latest['title'])) {
+                            $app['lastfm']->setSession($session);
+                            $result = $app['lastfm']->scrobble(
+                                $latest['artist'],
+                                $latest['title'],
+                                $latest['start']
+                            );
+
+                            if ((string)$result->ignoredMessage->attributes()->code === '0') {
+                                $app['scrobbles']->addScrobble(
+                                    $user,
+                                    (string)$result->artist,
+                                    (string)$result->track,
+                                    (int)$result->timestamp
+                                );
+                            }
+                        }
+                    }
                 }
             }
         }
