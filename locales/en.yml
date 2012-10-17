@@ -1,4 +1,38 @@
-hello_world: "Hello world"
+sitename: "Marietje Scrobbler"
+title_index: "Scrobbler"
 logout: "Logout"
 start: "Scrobble me some shizzle"
-welcome: 'Scrobble those great tracks in the Noord- or Zuidkantine! Scrobbling them is just a few clicks away after a push on the magnificent button below.'
+intro_index: >
+    Scrobble those great tracks in the Noord- or Zuidkantine! Scrobbling them is
+    just a few clicks away after a push on the magnificent button below.
+ignores: "Ignores"
+home: "Home"
+all: "All"
+delete: "Delete"
+artist: "Artist"
+track: "Track"
+delete_ignore: "Delete this ignore?"
+cancel: "Cancel"
+ignored_list: "List of ignored artists and tracks"
+scrobbled: "scrobbled"
+ignore: "Ignore"
+delete_scrobble_confirm: "Are you sure you want to delete this scrobble?"
+ignore_confirm: >
+    You can either ignore only this track, or all tracks of this artist.
+    This scrobble will be removed as well.
+south_leave: "Leave ZK"
+south_enter: "Enter ZK"
+north_leave: "Leave NK"
+north_enter: "Enter NK"
+north: "NK"
+south: "ZK"
+welcome: "Welcome %s"
+intro_home: >
+    Doe een check-in in de kantine waar je zit. Genoeg gehad? Klik op het goeie knopje om
+    de kantine te verlaten. De scrobbler blijft werken, ook als je je browser sluit. Elke
+    dag om 00:00 wordt je automatisch uit de kantine gehaald.
+whoops: "Whoops"
+content_forgot: "Looks like someone forgot to add content"
+copyright: "Nobody and the rest"
+remove_scrobble: "Remove scrobble"
+ignore_scrobble: "Ignore track"

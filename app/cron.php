@@ -82,3 +82,6 @@ while ($running < 60.0) {
     usleep($step * 1000000 + 1000); // a little extra margin
     $running = microtime(true) - $startTime;
 }
+
+$app['retrieved']->removeOld($app['keep_retrieved'] * 3600);
+$app['scrobbles']->removeOld($app['keep_scrobbles'] * 3600);

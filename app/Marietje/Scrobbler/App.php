@@ -63,6 +63,16 @@ class App extends Application
     private $checkInterval = 10.0;
 
     /**
+     * Hours to keep scrobbles in local database.
+     */
+    private $keep_scrobbles = 24;
+
+    /**
+     * Hours to keep retrieved tracks in local database.
+     */
+    private $keep_retrieved = 48;
+
+    /**
      * Construct a new application and setup all components required.
      */
     public function __construct()
@@ -120,6 +130,8 @@ class App extends Application
         $this['ignores']   = new Model\Ignores($this['db']);
         $this['locations'] = $this->locations;
         $this['interval']  = $this->checkInterval;
+        $this['keep_retrieved'] = $this->keep_retrieved;
+        $this['keep_scrobbles'] = $this->keep_scrobbles;
 
         // last.fm and session data
         $this['lastfm'] = new Lastfm($this->key, $this->secret);

@@ -29,4 +29,14 @@ $home->get('/home', function () use ($app) {
     }
 })->bind('home');
 
+
+/**
+ * Get list of ignores for the user
+ */
+$home->get('/ignores', function (Request $request) use ($app) {
+    return $app->render('ignores.twig', [
+        'ignores' => $app['ignores']->getIgnores($app['user'])
+    ]);
+})->bind('ignores');
+
 return $home;

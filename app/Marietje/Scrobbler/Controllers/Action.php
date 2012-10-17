@@ -46,7 +46,7 @@ $action->get('/update', function (Request $request) use ($app) {
  */
 $action->post('/ignore', function (Request $request) use ($app) {
     $artist = $request->get('artist');
-    $title = $request->get('title');
+    $title = $request->get('track');
     if ($title === null) {
         $app['ignores']->addIgnoredArtist($app['user'], $artist);
     } else {
@@ -59,20 +59,14 @@ $action->post('/ignore', function (Request $request) use ($app) {
  */
 $action->post('/unignore', function (Request $request) use ($app) {
     $artist = $request->get('artist');
-    $title = $request->get('title');
-    if ($title === null) {
+    $title = $request->get('track');
+    if ($title === null || strlen($title) === 0) {
         $app['ignores']->removeIgnoredArtist($app['user'], $artist);
     } else {
         $app['ignores']->removeIgnoredTrack($app['user'], $artist, $title);
     }
+    return $this->redirect($this->path('ignores'));
 })->bind('unignore');
-
-/**
- * Get list of ignores for the user
- */
-$action->get('/ignores', function (Request $request) use ($app) {
-    return $app->json($app['ignores']->getIgnores($app['user']));
-})->bind('ignores');
 
 /**
  * Remove a scrobble

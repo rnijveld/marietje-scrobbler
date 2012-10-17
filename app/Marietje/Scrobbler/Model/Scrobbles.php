@@ -44,8 +44,9 @@ class Scrobbles
         return $this->db->fetchAll($sql, [$since]);
     }
 
-    public function removeOldScrobbles($user)
+    public function removeOld($time)
     {
-        // TODO: remove old scrobbles
+        $sql = "DELETE FROM {$this->table} WHERE sent < ?";
+        return $this->db->executeUpdate($sql, [time() - $time]);
     }
 }

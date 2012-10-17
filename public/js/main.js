@@ -25,7 +25,6 @@
         };
 
         var update = function () {
-
             $.getJSON(updateUrl, {since: lastScrobble}, function (data) {
                 if (!data.zk) {
                     zuid.find('.artist').text('');
@@ -61,7 +60,7 @@
                         .append($('<td/>').append(
                             $('<a/>', {
                                 'class': 'btn btn-warning btn-small',
-                                'title': 'Remove scrobble',
+                                'title': TRANS.remove_scrobble,
                                 'href': '#remove_scrobble',
                                 'data-toggle': 'modal'
                             }).append($('<span/>').addClass('icon-trash icon-white')).click(function () {
@@ -80,7 +79,7 @@
                         ).append(document.createTextNode(' ')).append(
                             $('<a/>', {
                                 'class': 'btn btn-danger btn-small',
-                                'title': 'Ignore track',
+                                'title': TRANS.ignore_scrobble,
                                 'href': '#track_ignore',
                                 'data-toggle': 'modal'
                             }).append($('<span/>').addClass('icon-remove icon-white')).click(function () {
@@ -119,5 +118,19 @@
         };
         setInterval(update, interval);
         update();
+
+        $('.delete_ignore').click(function () {
+            var clickedRow = $(this).parents('tr').first();
+
+            $('#unignore_artist').val(
+                clickedRow.find('td.artist').text()
+            );
+            var track = clickedRow.find('td.track');
+            if (track.hasClass('all')) {
+                $('#unignore_track').val('');
+            } else {
+                $('#unignore_track').val(track.text());
+            }
+        });
     });
 }(jQuery, window, document));

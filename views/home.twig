@@ -1,23 +1,34 @@
 {% extends "layout.twig" %}
 
+{% block scripts %}
+    <script>
+
+        var TRANS = {
+            remove_scrobble: {{"remove_scrobble"|trans|json_encode()|raw}},
+            ignore_scrobble: {{"ignore_scrobble"|trans|json_encode()|raw}}
+        };
+    </script>
+    {{ parent() }}
+{% endblock %}
+
 {% block menu %}
     {{ parent() }}
+    <li class="active"><a href="{{ url('home') }}">{{"home"|trans}}</a></li>
+    <li><a href="{{ url('ignores') }}">{{"ignores"|trans}}</a></li>
     <li><a href="{{ url('logout') }}">{{"logout"|trans}}</a></li>
 {% endblock %}
 
 {% block page %}
     <div class="row">
-        <h1>Welcome {{user}}</h1>
+        <h1>{{ "welcome"|trans|format(user) }}</h1>
         <p class="lead">
-            Doe een check-in in de kantine waar je zit. Genoeg gehad? Klik op het goeie knopje om
-            de kantine te verlaten. De scrobbler blijft werken, ook als je je browser sluit. Elke
-            dag om 00:00 wordt je automatisch uit de kantine gehaald.
+            {{"intro_home"|trans}}
         </p>
         <hr>
     </div>
     <div class="row" id="nowplaying">
         <div class="span4 offset2">
-            <h2>Noordkantine</h2>
+            <h2>{{"north"|trans}}</h2>
             <div data-where="nk" class="thumbnail">
                 <div id="np-noord">
                     <img src="{{ app.request.basepath }}/img/stopped.jpg">
@@ -26,9 +37,9 @@
                 </div>
                 <form method="post" action="{{ url('switch', {where: 'nk'}) }}" class="center">
                     {% if nk %}
-                        <input type="submit" class="btn btn-danger" value="Noord verlaten">
+                        <input type="submit" class="btn btn-danger" value="{{"north_leave"|trans}}">
                     {% else %}
-                        <input type="submit" class="btn btn-success" value="Noord check-in">
+                        <input type="submit" class="btn btn-success" value="{{"north_enter"|trans}}">
                     {% endif %}
                 </form>
             </div>
@@ -36,7 +47,7 @@
 
         </div>
         <div class="span4">
-            <h2>Zuidkantine</h2>
+            <h2>{{"south"|trans}}</h2>
             <div data-where="zk" class="thumbnail">
                 <div id="np-zuid">
                     <img src="/img/stopped.jpg">
@@ -45,50 +56,58 @@
                 </div>
                 <form method="post" action="{{ url('switch', {where: 'zk'}) }}">
                     {% if zk %}
-                        <input type="submit" class="btn btn-danger" value="Zuid verlaten">
+                        <input type="submit" class="btn btn-danger" value="{{"south_leave"|trans}}">
                     {% else %}
-                        <input type="submit" class="btn btn-success" value="Zuid check-in">
+                        <input type="submit" class="btn btn-success" value="{{"south_enter"|trans}}">
                     {% endif %}
                 </form>
             </div>
 
         </div>
     </div>
-    <h2>Last scrobbles</h2>
-    <table class="table table-striped" id="scrobbles" data-url="{{ url('update') }}">
-        <thead>
-            <tr><th>Artist</th><th>Track</th><th>Scrobbled</th><th>Delete</th></tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="span12">
+            <h2>Last scrobbles</h2>
+            <table class="table table-striped" id="scrobbles" data-url="{{ url('update') }}">
+                <thead>
+                    <tr>
+                        <th>{{"artist"|trans}}</th>
+                        <th>{{"track"|trans}}</th>
+                        <th>{{"scrobbled"|trans}}</th>
+                        <th>{{"delete"|trans}}</th></tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="modal hide" id="track_ignore" role="dialog" tabindex="-1" aria-hidden="true" data-url="{{ url('ignore') }}">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Ignore</h3>
+            <h3>{{"ignore"|trans}}</h3>
         </div>
         <div class="modal-body">
-            <p>You may choose to ignore this artist or this track in the future, removes the current scrobble as well.</p>
+            <p>{{"ignore_confirm"|trans}}</p>
         </div>
         <div class="modal-footer">
-            <button href="#" id="ignore_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</button>
-            <button href="#" id="ignore_artist" class="btn btn-primary">Artist</button>
-            <button href="#" id="ignore_track" class="btn btn-primary">Track</button>
+            <button id="ignore_cancel" data-dismiss="modal" aria-hidden="true" class="btn">{{"cancel"|trans}}</button>
+            <button id="ignore_artist" class="btn btn-primary">{{"artist"|trans}}</button>
+            <button id="ignore_track" class="btn btn-primary">{{"track"|trans}}</button>
         </div>
     </div>
 
     <div class="modal hide" id="remove_scrobble" role="dialog" tabindex="-1" aria-hidden="true" data-url="{{ url('delete') }}">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Remove</h3>
+            <h3>{{"delete"|trans}}</h3>
         </div>
         <div class="modal-body">
-            <p>Remove this scrobble?</p>
+            <p>{{"delete_scrobble_confirm"|trans}}</p>
         </div>
         <div class="modal-footer">
-            <button href="#" id="remove_cancel" data-dismiss="modal" aria-hidden="true" class="btn">Cancel</button>
-            <button href="#" id="remove_remove" class="btn btn-primary">Remove</button>
+            <button id="remove_cancel" data-dismiss="modal" aria-hidden="true" class="btn">{{"cancel"|trans}}</button>
+            <button id="remove_remove" class="btn btn-primary">{{"delete"|trans}}</button>
         </div>
     </div>
 {% endblock %}

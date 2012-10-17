@@ -1,0 +1,59 @@
+{% extends "layout.twig" %}
+
+{% block menu %}
+    {{ parent() }}
+    <li><a href="{{ url('home') }}">{{"home"|trans}}</a></li>
+    <li class="active"><a href="{{ url('ignores') }}">{{"ignores"|trans}}</a></li>
+    <li><a href="{{ url('logout') }}">{{"logout"|trans}}</a></li>
+{% endblock %}
+
+{% block page %}
+    <div class="row">
+        <div class="span12">
+            <h2>{{"ignored_list"|trans}}</h2>
+            <table class="table table-striped" id="ignores" data-url="{{ url('unignore') }}">
+                <thead>
+                    <tr><th>{{"artist"|trans}}</th><th>{{"track"|trans}}</th><th>{{"delete"|trans}}</th></tr>
+                </thead>
+                <tbody>
+                    {% for ignore in ignores %}
+                    <tr>
+                        <td class="artist">{{ ignore.artist }}</td>
+                        {% if ignore.title %}
+                            <td class="track">{{ ignore.title }}</td>
+                        {% else %}
+                            <td class="track all"><span class="label label-info">{{"all"|trans}}</span></td>
+                        {% endif %}
+                        <td>
+                            <a href="#delete_ignore" class="btn btn-danger btn-small delete_ignore" data-toggle="modal">
+                                <span class="icon-white icon-trash"></span> {{"delete"|trans}}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal hide" id="delete_ignore" role="dialog" tabindex="-1" aria-hidden="true">
+        <form method="post" action="{{ url('unignore') }}">
+            <input type="hidden" id="unignore_artist" name="artist" value="">
+            <input type="hidden" id="unignore_track" name="track" value="">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>{{"delete"|trans}}</h3>
+            </div>
+            <div class="modal-body">
+                <p>{{"delete_ignore"|trans}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="unignore_cancel" data-dismiss="modal" aria-hidden="true" class="btn">
+                    {{"cancel"|trans}}
+                </button>
+                <button type="submit" id="unignore_confirm" class="btn btn-primary">
+                    {{"delete"|trans}}
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

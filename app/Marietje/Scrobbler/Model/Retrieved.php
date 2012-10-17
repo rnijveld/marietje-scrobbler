@@ -64,8 +64,9 @@ class Retrieved
         ]);
     }
 
-    public function removeOldRetrieves($where)
+    public function removeOld($time)
     {
-        // TODO
+        $sql = "DELETE FROM {$this->table} WHERE start < ?";
+        return $this->db->executeUpdate($sql, [time() - $time]);
     }
 }

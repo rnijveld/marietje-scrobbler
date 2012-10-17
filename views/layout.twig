@@ -17,7 +17,7 @@
                 <script src="{{ app.request.basepath }}/js/bootstrap.min.js"></script>
                 <script src="{{ app.request.basepath }}/js/main.js"></script>
             {% endblock %}
-            <title>{% block title %}MarietjeScrobbler{% endblock %}</title>
+            <title>{% block title %}{{"sitename"|trans}}{% endblock %}</title>
         {% endblock %}
     </head>
     <body>
@@ -29,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="{{ url('index') }}">MarietjeScrobbler</a>
+                    <a class="brand" href="{{ url('index') }}">{{"sitename"|trans}}</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             {% block menu %}
@@ -44,14 +44,14 @@
         <div class="container" id="page">
             {% block page %}
                 <div class="row">
-                    <h1>Whoops</h1>
-                    <p>Looks like someone forgot to add content</p>
+                    <h1>{{"whoops"|trans}}</h1>
+                    <p>{{"content_forgot"|trans}}</p>
                 </div>
             {% endblock %}
             <div class="row">
                 <hr>
                 <footer>
-                    <p class="muted">&copy; Nobody and the rest</p>
+                    <p class="muted">&copy; {{"copyright"|trans}}</p>
                 </footer>
             </div>
         </div>

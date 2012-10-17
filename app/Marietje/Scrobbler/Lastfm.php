@@ -275,16 +275,18 @@ class Lastfm
 
     public function hasScrobbleQuality(array $track)
     {
-        // TODO: determine if a track should be scrobbled at this time
-        // - when was the previous track played?
-        // - has the track fully played or not
-        return true;
+        $end = $track['start'] + $track['length'] + $track['offset'];
+        // check if (almost) ended && track wasn't played too long ago
+        return time() > $end - 10 && abs(time() - $end) <= 150;
     }
 
     public function updateTrackInfo(array $track)
     {
         $info = $this->getTrackInfo($track['artist'], $track['title']);
-        $images = $info->album->image;
+        $images = null;
+        if ($info && $info->album && $info->album->image) {
+            $images = $info->album->image;
+        }
         if ($images !== null) {
             foreach ($images as $img) {
                 if ((string)$img->attributes()->size === 'extralarge') {
