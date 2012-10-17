@@ -28,9 +28,9 @@ north: "NK"
 south: "ZK"
 welcome: "Welcome %s"
 intro_home: >
-    Enter the cantina you're in. Had enough? Just one more press of the button to get out.
-    The scrobbler will keep working for you, even if you close your browser, so don't forget!
-    If you do, you'll be removed as a listener at midnight.
+    Press one of the magic buttons to start listening. Had enough? Just one more press of the button
+    to get out. The scrobbler will keep working for you, even if you close your browser, so don't forget
+    that last click when you're gone! If you do forget, you'll be removed as a listener at midnight.
 whoops: "Whoops"
 content_forgot: "Looks like someone forgot to add content"
 copyright: "Nobody and the rest"
