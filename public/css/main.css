@@ -3,6 +3,10 @@ body {
     padding-bottom: 40px;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 #nowplaying {
     text-align: center;
 }
