@@ -1,8 +1,38 @@
-hello_world: "Hallo wereld"
+sitename: "Marietje Scrobbler"
+title_index: "Scrobbler"
 logout: "Uitloggen"
 start: "Scrobblen die zooi"
-welcome: 'Scobbelt je tracks in de Noord- of Zuidkantine! Klik op de fantastische knop om in te loggen bij last.fm en al die kekke tracks toe te voegen aan je profiel.'
+intro_index: >
+    Scobbelt je tracks in de Noord- of Zuidkantine! Klik op de fantastische knop
+    om in te loggen bij last.fm en al die kekke tracks toe te voegen aan je profiel.
 ignores: "Negeren"
-home: "Thuis"
+home: "Home"
 all: "Alles"
 delete: "Verwijderen"
+artist: "Artiest"
+track: "Nummer"
+delete_ignore: "Verwijder deze ignore?"
+cancel: "Annuleren"
+ignored_list: "Lijst van genegeerde artiesten en nummers"
+scrobbled: "Gescrobbeld"
+ignore: "Negeren"
+delete_scrobble_confirm: "Weet je zeker dat je deze scrobble wil verwijderen?"
+ignore_confirm: >
+    Je kan er voor kiezen om dit nummer of alle nummers van deze artiest
+    te negeren. Deze scrobble zal ook verwijderd worden.
+south_leave: "ZK verlaten"
+south_enter: "Luisteren"
+north_leave: "NK verlaten"
+north_enter: "Luisteren"
+north: "NK"
+south: "ZK"
+welcome: "Welkom %s"
+intro_home: >
+    Doe een check-in in de kantine waar je zit. Genoeg gehad? Klik op het goeie knopje om
+    de kantine te verlaten. De scrobbler blijft werken, ook als je je browser sluit. Elke
+    dag om 00:00 wordt je automatisch uit de kantine gehaald.
+whoops: "Oeps"
+content_forgot: "Iemand is vergeten wat inhoud te schrijven!"
+copyright: "Niemand en de rest"
+remove_scrobble: "Verwijder scrobble"
+ignore_scrobble: "Negeer nummer"

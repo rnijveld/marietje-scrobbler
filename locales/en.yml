@@ -14,7 +14,7 @@ track: "Track"
 delete_ignore: "Delete this ignore?"
 cancel: "Cancel"
 ignored_list: "List of ignored artists and tracks"
-scrobbled: "scrobbled"
+scrobbled: "Scrobbled"
 ignore: "Ignore"
 delete_scrobble_confirm: "Are you sure you want to delete this scrobble?"
 ignore_confirm: >
@@ -28,9 +28,9 @@ north: "NK"
 south: "ZK"
 welcome: "Welcome %s"
 intro_home: >
-    Doe een check-in in de kantine waar je zit. Genoeg gehad? Klik op het goeie knopje om
-    de kantine te verlaten. De scrobbler blijft werken, ook als je je browser sluit. Elke
-    dag om 00:00 wordt je automatisch uit de kantine gehaald.
+    Enter the cantina you're in. Had enough? Just one more press of the button to get out.
+    The scrobbler will keep working for you, even if you close your browser, so don't forget!
+    If you do, you'll be removed as a listener at midnight.
 whoops: "Whoops"
 content_forgot: "Looks like someone forgot to add content"
 copyright: "Nobody and the rest"
