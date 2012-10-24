@@ -40,8 +40,8 @@ class Scrobbles
 
     public function getScrobbles($user, $since = 0)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE start > ?";
-        return $this->db->fetchAll($sql, [$since]);
+        $sql = "SELECT * FROM {$this->table} WHERE start > ? AND user = ?";
+        return $this->db->fetchAll($sql, [$since, $user]);
     }
 
     public function removeOld($time)
