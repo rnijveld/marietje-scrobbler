@@ -11,6 +11,11 @@
     <div class="row">
         <div class="span12">
             <h2>{{"ignored_list"|trans}}</h2>
+			<form class="form-inline" action="{{ url('ignores_post') }}" method="post">
+				<input type="text" class="input-large" name="artist" placeholder="Artist">
+				<input type="text" class="input-large" name="track" placeholder="Track (optional)">
+				<button type="submit" class="btn">Add ignore</button>
+			</form>
             <table class="table table-striped" id="ignores" data-url="{{ url('unignore') }}">
                 <thead>
                     <tr><th>{{"artist"|trans}}</th><th>{{"track"|trans}}</th><th>{{"delete"|trans}}</th></tr>
