@@ -28,7 +28,6 @@ $user->get('/auth', function (Request $request) use ($app) {
     if ($token === null) {
         $app->abort(500, "Token was not set.");
     }
-
     $session = $app['lastfm']->getSession($token);
     $app['lastfm']->setSession($session['key']);
     $app['session']->set('user_details', $app['lastfm']->getUserInfo());
