@@ -52,6 +52,9 @@ $action->post('/ignore', function (Request $request) use ($app) {
     } else {
         $app['ignores']->addIgnoredTrack($app['user'], $artist, $title);
     }
+    return $app->json([
+        'ok' => true
+    ]);
 })->bind('ignore');
 
 /**
@@ -77,6 +80,9 @@ $action->post('/unscrobble', function (Request $request) use ($app) {
     $timestamp = $request->get('timestamp');
     $app['lastfm']->removeScrobble($artist, $track, $timestamp);
     $app['scrobbles']->removeScrobble($app['user'], $artist, $track, $timestamp);
+    return $app->json([
+        'ok' => true
+    ]);
 })->bind('delete');
 
 return $action;
