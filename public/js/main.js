@@ -61,8 +61,7 @@
                             $('<a/>', {
                                 'class': 'btn btn-danger btn-small',
                                 'title': TRANS.remove_scrobble,
-                                'href': '#remove_scrobble',
-                                'data-toggle': 'modal'
+                                'href': '#remove_scrobble'
                             }).append($('<span/>').addClass('icon-trash icon-white')).click(function () {
                                 doRemove(scrobble, tr);
                                 // var click = function () {
@@ -76,6 +75,7 @@
                                 // };
                                 // $('#remove_remove').on('click', click);
                                 // remover.on('hide', hide);
+                                return false;
                             })
                         ).append(document.createTextNode(' ')).append(
                             $('<a/>', {
