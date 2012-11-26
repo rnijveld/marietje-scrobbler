@@ -59,26 +59,27 @@
                         .append($('<td/>').text(time))
                         .append($('<td/>').append(
                             $('<a/>', {
-                                'class': 'btn btn-warning btn-small',
+                                'class': 'btn btn-danger btn-small',
                                 'title': TRANS.remove_scrobble,
                                 'href': '#remove_scrobble',
                                 'data-toggle': 'modal'
                             }).append($('<span/>').addClass('icon-trash icon-white')).click(function () {
-                                var click = function () {
-                                    doRemove(scrobble, tr);
-                                    remover.modal('hide');
-                                };
+                                doRemove(scrobble, tr);
+                                // var click = function () {
+                                //     oRemove(scrobble, tr);
+                                //     remover.modal('hide');
+                                // };
 
-                                var hide = function () {
-                                    remover.off('hide', hide);
-                                    $('#remove_remove').off('click', click);
-                                };
-                                $('#remove_remove').on('click', click);
-                                remover.on('hide', hide);
+                                // var hide = function () {
+                                //     remover.off('hide', hide);
+                                //     $('#remove_remove').off('click', click);
+                                // };
+                                // $('#remove_remove').on('click', click);
+                                // remover.on('hide', hide);
                             })
                         ).append(document.createTextNode(' ')).append(
                             $('<a/>', {
-                                'class': 'btn btn-danger btn-small',
+                                'class': 'btn btn-warning btn-small',
                                 'title': TRANS.ignore_scrobble,
                                 'href': '#track_ignore',
                                 'data-toggle': 'modal'
