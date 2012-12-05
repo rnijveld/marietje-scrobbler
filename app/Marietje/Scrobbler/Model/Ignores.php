@@ -18,9 +18,10 @@ class Ignores
     public function isIgnored($user, $artist, $track)
     {
         $sql = "SELECT COUNT(*) FROM {$this->table} WHERE user = :user AND (
-            (artist = :artist AND title IS NULL)
+            (trim(lower(artist)) = trim(lower(:artist)) AND title IS NULL)
             OR
-            (artist = :artist AND title = :title))";
+            (trim(lower(artist)) = trim(lower(:artist)) AND trim(lower(title)) = trim(lower(:title)))
+        )";
 
         return 0 !== (int)$this->db->fetchColumn($sql, [
             'user' => $user,
