@@ -30,7 +30,7 @@ welcome: "Welkom %s"
 intro_home: >
     Doe een check-in in de kantine waar je zit. Genoeg gehad? Klik op het goeie knopje om
     de kantine te verlaten. De scrobbler blijft werken, ook als je je browser sluit. Elke
-    dag om 00:00 wordt je automatisch uit de kantine gehaald.
+    dag om 21:30 wordt je automatisch uit de kantine gehaald.
 whoops: "Oeps"
 content_forgot: "Iemand is vergeten wat inhoud te schrijven!"
 copyright: "Niemand en de rest"

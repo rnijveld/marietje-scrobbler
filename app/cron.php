@@ -9,8 +9,8 @@ $app = new Marietje\Scrobbler\App();
 $startTime = microtime(true);
 $running = 0;
 
-// clear listeners at midnight
-if (date('Hi') === '0000') {
+// clear listeners at 21:30
+if (date('Hi') === '2130') {
     $app['listeners']->clear();
 }
 
