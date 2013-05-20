@@ -32,7 +32,7 @@ class Ignores
 
     public function getIgnores($user)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE user = ?";
+        $sql = "SELECT * FROM {$this->table} WHERE user = ? ORDER BY artist ASC";
         return $this->db->fetchAll($sql, [$user]);
     }
 
